@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories version="1.0">
+  <repo priority="50" status="unofficial">
+    <name>misan-overlay</name>
+    <description>Gentoo Ebuilds</description>
+    <homepage>https://github.com/misanthropos</homepage>
+    <owner>
+      <email>misanthropos@gmx.de</email>
+      <name>Richard Fröhning</name>
+    </owner>
+    <source type="git">https://github.com/misanthropos/misan-overlay.git</source>
+  </repo>
+</repositories>
