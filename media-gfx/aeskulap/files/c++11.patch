@@ -1,0 +1,11 @@
+--- /tmp/portage/media-gfx/aeskulap-9999/work/aeskulap-9999/configure.ac	2017-03-03 01:09:24.562889665 +0100
++++ ./configure.ac	2017-03-03 01:07:22.018368822 +0100
+@@ -104,6 +104,8 @@
+ AC_SUBST(DCMTK_CFLAGS)
+ AC_SUBST(DCMTK_LIBS)
+ 
++CPPFLAGS+=" -std=c++11"
++
+ DCMTK_CFLAGS="-DHAVE_CONFIG_H -I\$(prefix)/include"
+ DCMTK_LIBS="-L\$(prefix)/lib -ldcmjpeg -lijg8 -lijg12 -lijg16 -ldcmimage -ldcmimgle -ldcmnet -ldcmdata -loflog -lofstd -lwrap"
+ 
