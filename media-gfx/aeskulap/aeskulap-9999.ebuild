@@ -55,8 +55,8 @@ DEPEND="${RDEPEND}
 src_prepare() {
   cd "${S}"
   epatch "${FILESDIR}/c++11.patch"
-  sed -i 's/ newDicomElement/ DcmItem::newDicomElement/' imagepool/netloader.cpp imagepool/netquery.cpp imagepool/poolassociation.h
-  sed -i 's/numberOfAllDcmStorageSOPClassUIDs/numberOfDcmAllStorageSOPClassUIDs/' imagepool/poolmoveassociation.cpp imagepool/poolnetwork.cpp
+  #sed -i 's/ newDicomElement/ DcmItem::newDicomElement/' imagepool/netloader.cpp imagepool/netquery.cpp imagepool/poolassociation.h
+  #sed -i 's/numberOfAllDcmStorageSOPClassUIDs/numberOfDcmAllStorageSOPClassUIDs/' imagepool/poolmoveassociation.cpp imagepool/poolnetwork.cpp
   
 }
 
