@@ -1,9 +1,9 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=2
+EAPI=4
 
-inherit git-r3   ${GIT_ECLASS}
+inherit git-r3  ${GIT_ECLASS} autotools
 
 DESCRIPTION="A multi-purpose WAVE data processing and reporting utility"
 HOMEPAGE="https://github.com/flacon/shntool/"
@@ -20,13 +20,13 @@ RDEPEND="flac? ( media-libs/flac )
 	sox? ( media-sound/sox )
 	alac? ( media-sound/alac_decoder )
 	shorten? ( media-sound/shorten )
-	wavpack? ( media-sound/wavpack )"
+	wavpack? ( media-sound/wavpack )
+"
 DEPEND="${RDEPEND}"
 
 DOCS="NEWS README ChangeLog AUTHORS doc/*"
 
-S="${WORKDIR}/${MY_P}"
-#S="${WORKDIR}"
-EGIT_CHECKOUT_DIR=${S}
-
-
+src_configure() {
+        export CONFIG_SHELL=${BASH}  # bug #527310
+        default
+}
