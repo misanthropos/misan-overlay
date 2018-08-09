@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /sources/aeskulap/portage-aeskulap/media-gfx/aeskulap/aeskulap-20060223.ebuild,v 1.2 2006/03/06 17:51:50 braindead Exp $
 
-EAPI=3
+EAPI=4
 
 if [[ ${PV} = 9999 ]]; then
         GIT_ECLASS="git-r3"
