@@ -11,7 +11,10 @@ fi
                 
 inherit eutils cvs flag-o-matic multilib ${GIT_ECLASS}
 
-EGIT_REPO_URI="https://github.com/jenslody/aeskulap.git"
+#EGIT_REPO_URI="https://github.com/jenslody/aeskulap.git"
+EGIT_REPO_URI="https://github.com/:misanthropos/aeskulap.git"
+#EGIT_REPO_URI="git@github.com:misanthropos/aeskulap.git"
+
 
 ECVS_SERVER="cvs.sv.gnu.org:/sources/aeskulap"
 ECVS_MODULE="aeskulap"
