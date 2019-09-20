@@ -47,7 +47,7 @@ RDEPEND=">=x11-libs/gtk+-2.6.5
 	>=dev-cpp/glibmm-2.6
 	>=dev-cpp/gconfmm-2.6
 	>=dev-cpp/libglademm-2.6
-        =sci-libs/dcmtk-9999"
+        >=sci-libs/dcmtk-3.6.4"
         
 
 DEPEND="${RDEPEND}
