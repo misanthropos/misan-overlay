@@ -21,7 +21,7 @@ else
 fi
 
 if [[ ${PV} == *9999* ]]; then
-            S="${WORKDIR}/${PN}"
+            S="${WORKDIR}/${PN}-9999"
 else
             S="${WORKDIR}/${PN}-${MY_PV}"
 fi
