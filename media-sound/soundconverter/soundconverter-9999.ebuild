@@ -16,7 +16,7 @@ if [[ ${PV} == *9999* ]]; then
         SRC_URI=""
 else
         SRC_URI="https://launchpad.net/${PN}/trunk/${MY_PV}/+download/${PN}-${MY_PV}.tar.xz"
-        KEYWORDS="amd64 x86"
+#        KEYWORDS="amd64 x86"
         MY_PV="${PV/_/-}"
 fi
 
