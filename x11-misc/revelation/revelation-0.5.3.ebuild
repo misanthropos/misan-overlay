@@ -8,7 +8,6 @@ inherit python-single-r1 autotools gnome2
 
 DESCRIPTION="A password manager for GNOME"
 HOMEPAGE="https://revelation.olasagasti.info/"
-#SRC_URI="https://www.bitbucket.org/erikg/revelation/downloads/${P}.tar.xz"
 SRC_URI="https://github.com/mikelolasagasti/revelation/releases/download/${P}/${P}.tar.xz"
 
 LICENSE="GPL-2"
@@ -28,10 +27,6 @@ RDEPEND="${PYTHON_DEPS}
 	')
         x11-libs/gtk+
 "
-# dev-python/gconf-python[${PYTHON_MULTI_USEDEP}]
-# sys-libs/cracklib[python,${PYTHON_MULTI_USEDEP}]
-# dev-python/dbus-python[${PYTHON_MULTI_USEDEP}]
-# dev-python/pygtk[${PYTHON_MULTI_USEDEP}]
 
 DEPEND="${RDEPEND}"
 
