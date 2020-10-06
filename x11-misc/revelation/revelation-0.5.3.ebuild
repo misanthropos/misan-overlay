@@ -13,23 +13,24 @@ SRC_URI="https://github.com/mikelolasagasti/revelation/releases/download/${P}/${
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
-
+KEYWORDS="~amd64 ~x86"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+# Upstream does not provide any test suite.
 RESTRICT="test"
 
 RDEPEND="${PYTHON_DEPS}
 	$(python_gen_cond_dep '
 		dev-python/pycryptodomex[${PYTHON_USEDEP}]
-                dev-python/pygobject[${PYTHON_USEDEP}]
-                dev-libs/libpwquality[python,${PYTHON_USEDEP}]
+		dev-python/pygobject[${PYTHON_USEDEP}]
+		dev-libs/libpwquality[python,${PYTHON_USEDEP}]
 	')
         x11-libs/gtk+:3
 "
 
 DEPEND="${RDEPEND}"
+
 
 src_prepare() {
 	eapply_user

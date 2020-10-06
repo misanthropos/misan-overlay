@@ -17,6 +17,9 @@ KEYWORDS="~amd64 ~x86"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+# Upstream does not provide any test suite.
+RESTRICT="test"
+
 RDEPEND="${PYTHON_DEPS}
 	$(python_gen_cond_dep '
 		dev-python/pycryptodomex[${PYTHON_USEDEP}]
@@ -30,21 +33,9 @@ RDEPEND="${PYTHON_DEPS}
 
 DEPEND="${RDEPEND}"
 
-#src_prepare() {
-#	eapply_user
-#	eautoreconf
-#}
-
-#src_configure() {
-#	gnome2_src_configure \
-#		--disable-desktop-update \
-#		--disable-mime-update
-#}
-
-#src_install() {
-#	gnome2_src_install
-#	python_fix_shebang "${ED}"
-#}
+PATCHES=(
+	"${FILESDIR}"/${PN}-0.5.4-undo-DIR_GSCHEMAS.patch
+)
 
 src_install() {
 	meson_src_install

@@ -1,0 +1,13 @@
+diff --git a/src/lib/config.py.in b/src/lib/config.py.in
+index cc3cd76..351810d 100644
+--- a/src/lib/config.py.in
++++ b/src/lib/config.py.in
+@@ -31,7 +31,7 @@ _ = gettext.gettext
+ DIR_ICONS       = "@pkgdatadir@/icons"
+ DIR_LOCALE      = "@datadir@/locale"
+ DIR_UI          = "@pkgdatadir@"
+-DIR_GSCHEMAS    = "@pkgdatadir@/schemas"
++#DIR_GSCHEMAS    = "@pkgdatadir@/schemas"
+ 
+ APPNAME     = "Revelation"
+ PACKAGE     = "@PACKAGE@"
