@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_8 )
 
-inherit python-single-r1 meson xdg
+inherit gnome2-utils python-single-r1 meson xdg
 
 DESCRIPTION="A password manager for GNOME"
 HOMEPAGE="https://revelation.olasagasti.info/ https://github.com/mikelolasagasti/revelation"
@@ -33,12 +33,18 @@ RDEPEND="${PYTHON_DEPS}
 
 DEPEND="${RDEPEND}"
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-0.5.4-undo-DIR_GSCHEMAS.patch
-)
-
 src_install() {
 	meson_src_install
 	python_fix_shebang "${ED}"
 	python_optimize
+}
+
+pkg_postinst() {
+	xdg_pkg_postinst
+	gnome2_schemas_update
+}
+
+pkg_postrm() {
+	xdg_pkg_postrm
+	gnome2_schemas_update
 }
