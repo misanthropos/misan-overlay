@@ -164,6 +164,7 @@ src_configure() {
 			 -DWITH_RUST_BINARIES=OFF
 			 -DBUILD_LAUNCHER=OFF
 			 -DOPENGL_GL_PREFERENCE=GLVND
+			 -DEXTRA_DATA_DIR="/usr/share/ja2"
 			 )
 
 		cargo_src_unpack	 
