@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -92,8 +92,8 @@ winapi-x86_64-pc-windows-gnu-0.4.0
 "
 
 if [[ ${PV} = 9999 ]]; then
-      GIT_ECLASS="git-r3"
-      EXPERIMENTAL="true"
+	  GIT_ECLASS="git-r3"
+	  EXPERIMENTAL="true"
 fi
 
 inherit cmake cargo ${GIT_ECLASS}
@@ -108,52 +108,45 @@ else
 	SRC_URI+=" $(cargo_crate_uris ${CRATES})"
 fi
 
-
+IUSE="cdinstall"
 LICENSE="SFI-SCLA"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cdinstall editor"
-
 
 DEPEND="media-libs/libsdl2[X,sound,video]
-		!=media-libs/libsdl2-2.0.6
-        >=dev-lang/rust-1.40.0
+		!~media-libs/libsdl2-2.0.6
+		>=dev-lang/rust-1.40.0
 		>=dev-cpp/gtest-1.9.0_pre20190607
-        >=x11-libs/fltk-1.3.5
+		>=x11-libs/fltk-1.3.5
 		>=dev-libs/rapidjson-1.1.0
-        dev-util/cmake
 "
 
 RDEPEND="${DEPEND}
-	cdinstall? ( games-strategy/ja2-stracciatella-data )"
+	cdinstall? ( games-strategy/ja2-stracciatella-data )
+"
 
-LANGS="linguas_de +linguas_en linguas_fr linguas_it linguas_nl linguas_pl linguas_ru linguas_ru_gold"
+LANGS="l10n_de +l10n_en l10n_fr l10n_it l10n_nl l10n_pl l10n_ru"
 
 IUSE="$IUSE $LANGS"
 REQUIRED_USE="^^ ( ${LANGS//+/} )"
 
-PATCHES=( 
+PATCHES=(
 	"${FILESDIR}/${P}-staticlibsmacker.patch"
 )
 
-#MAKEOPTS=-j1
-
 CMAKE_BUILD_TYPE="Release"
-#CMAKE_MAKEFILE_GENERATOR=emake
-
 
 src_configure() {
 
-		case ${LINGUAS} in
+		case ${L10N} in
 			de) mycmakeargs+=" -DLNG=GERMAN" ;;
 			nl) mycmakeargs+=" -DLNG=DUTCH" ;;
 			fr) mycmakeargs+=" -DLNG=FRENCH" ;;
 			it) mycmakeargs+=" -DLNG=ITALIAN" ;;
 			pl) mycmakeargs+=" -DLNG=POLISH" ;;
-			ru) mycmakeargs+=" -DLNG=RUSSIAN" ;;
-			ru_gold) mycmakeargs+=" -DLNG=RUSSIAN_GOLD" ;;
+			ru) mycmakeargs+=" -DLNG=$(usex ru-gold RUSSIAN_GOLD RUSSIAN)" ;;
 			en) mycmakeargs+=" -DLNG=ENGLISH" ;;
-			*) die "no language selected in LINGUAS" ;;
+			*) die "no language selected in L10N" ;;
 		esac
 		   elog "Chosen language is ${mycmakeargs# -DLNG=}"
 
@@ -167,16 +160,14 @@ src_configure() {
 			 -DEXTRA_DATA_DIR="/usr/share/ja2"
 			 )
 
-		cargo_src_unpack	 
+		cargo_src_unpack
 		cargo_gen_config
 		cmake_src_configure
 }
 
-
 src_compile() {
-        cmake_src_compile 
+		cmake_src_compile
 }
-
 
 src_install() {
 
