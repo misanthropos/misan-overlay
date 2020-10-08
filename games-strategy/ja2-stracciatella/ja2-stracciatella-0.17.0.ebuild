@@ -10,14 +10,13 @@ fi
 
 inherit cmake ${GIT_ECLASS}
 
-
-DESCRIPTION="A port of Jagged Alliance 2 to SDL2"
+DESCRIPTION="An improved, cross-platform, stable Jagged Alliance 2 runtime"
 HOMEPAGE="https://github.com/ja2-stracciatella/"
 
 if [[ ${PV} = 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/ja2-stracciatella/ja2-stracciatella.git"
 else
-	SRC_URI="https://github.com/ja2-stracciatella/ja2-stracciatella/releases/tag/v${PV}.tar.gz"
+	SRC_URI="https://github.com/ja2-stracciatella/ja2-stracciatella/releases/tag/v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 
@@ -28,11 +27,13 @@ IUSE="cdinstall editor zlib"
 
 
 DEPEND="media-libs/libsdl2[X,sound,video]
-	!=media-libs/libsdl2-2.0.6
+		!=media-libs/libsdl2-2.0.6
         >=dev-lang/rust-1.40.0
-        >=x11-libs/fltk-1.3.3-r3
+		>=dev-cpp/gtest-1.9.0_pre20190607
+        >=x11-libs/fltk-1.3.5
+		>=dev-libs/rapidjson-1.1.0
         dev-util/cmake
-	zlib? ( sys-libs/zlib )"
+		zlib? ( sys-libs/zlib )"
 
 RDEPEND="${DEPEND}
 	cdinstall? ( games-strategy/ja2-stracciatella-data )"
@@ -42,9 +43,13 @@ LANGS="linguas_de +linguas_en linguas_fr linguas_it linguas_nl linguas_pl lingua
 IUSE="$IUSE $LANGS"
 REQUIRED_USE="^^ ( ${LANGS//+/} )"
 
+MAKEOPTS=-j1
+
+#CMAKE_BUILD_TYPE="Release"
+CMAKE_MAKEFILE_GENERATOR=emake
 
 src_configure() {
-		local mycmakeargs=()
+#		local mycmakeargs=()
 
 		case ${LINGUAS} in
 			de) mycmakeargs+=" -DLNG=GERMAN" ;;
@@ -57,14 +62,17 @@ src_configure() {
 			en) mycmakeargs+=" -DLNG=ENGLISH" ;;
 			*) die "no language selected in LINGUAS" ;;
 		esac
-		   elog "Chosen language is ${mycmakeargs#LNG=}"
+		   elog "Chosen language is ${mycmakeargs# -DLNG=}"
 
-#		mycmakeargs+=" -DWITH_CUSTOM_LOCALE="
-		mycmakeargs+=" -DWITH_ZLIB=$(usex zlib)"
-		mycmakeargs+=" -DLOCAL_GTEST_LIB=OFF"
-		mycmakeargs+=" -DLOCAL_RAPIDJSON_LIB=OFF"
-        mycmakeargs+=" -DWITH_RUST_BINARIES=OFF"
-
+		mycmakeargs+=(
+			 -DLOCAL_GTEST_LIB=OFF
+			 -DLOCAL_RAPIDJSON_LIB=OFF
+			 -DLOCAL_STRING_THEORY_LIB=OFF
+			 -DWITH_RUST_BINARIES=OFF
+			 -DBUILD_LAUNCHER=OFF
+			 -DOPENGL_GL_PREFERENCE=GLVND
+			 )
+		cmake_policy
 		cmake_src_configure
 }
 
