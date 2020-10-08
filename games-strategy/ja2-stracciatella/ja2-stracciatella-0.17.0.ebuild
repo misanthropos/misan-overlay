@@ -139,7 +139,7 @@ src_configure() {
 			en) mycmakeargs+=" -DLNG=ENGLISH" ;;
 			*) die "no language selected in L10N" ;;
 		esac
-		   elog "Chosen language is ${mycmakeargs# -DLNG=}"
+		elog "Chosen language is ${mycmakeargs# -DLNG=}"
 
 		mycmakeargs+=(
 			 -DLOCAL_GTEST_LIB=OFF
