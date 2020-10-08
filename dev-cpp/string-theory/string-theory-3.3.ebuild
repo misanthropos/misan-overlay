@@ -20,15 +20,3 @@ S="${WORKDIR}/string_theory-${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
-src_configure() {
-		cmake_src_configure
-}
-
-src_compile() {
-		cmake_src_compile
-}
-
-src_install() {
-		cmake_src_install
-}
