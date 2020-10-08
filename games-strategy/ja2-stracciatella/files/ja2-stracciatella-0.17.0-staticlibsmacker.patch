@@ -1,0 +1,10 @@
+diff --git a/dependencies/lib-smacker/CMakeLists.txt b/dependencies/lib-smacker/CMakeLists.txt
+index c9c3de5..2e65ad7 100644
+--- a/dependencies/lib-smacker/CMakeLists.txt
++++ b/dependencies/lib-smacker/CMakeLists.txt
+@@ -8,4 +8,4 @@ set(source_files
+     libsmacker/smk_bitstream.c
+ )
+ 
+-add_library(smacker ${source_files})
++add_library(smacker STATIC ${source_files})

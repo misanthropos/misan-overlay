@@ -132,9 +132,13 @@ LANGS="linguas_de +linguas_en linguas_fr linguas_it linguas_nl linguas_pl lingua
 IUSE="$IUSE $LANGS"
 REQUIRED_USE="^^ ( ${LANGS//+/} )"
 
+PATCHES=( 
+	"${FILESDIR}/${P}-staticlibsmacker.patch"
+)
+
 #MAKEOPTS=-j1
 
-#CMAKE_BUILD_TYPE="Release"
+CMAKE_BUILD_TYPE="Release"
 #CMAKE_MAKEFILE_GENERATOR=emake
 
 
