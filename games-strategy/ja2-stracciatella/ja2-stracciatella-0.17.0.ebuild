@@ -91,33 +91,25 @@ winapi-i686-pc-windows-gnu-0.4.0
 winapi-x86_64-pc-windows-gnu-0.4.0
 "
 
-if [[ ${PV} = 9999 ]]; then
-	  GIT_ECLASS="git-r3"
-	  EXPERIMENTAL="true"
-fi
-
-inherit cmake cargo ${GIT_ECLASS}
+inherit cargo cmake xdg-utils
 
 DESCRIPTION="An improved, cross-platform, stable Jagged Alliance 2 runtime"
 HOMEPAGE="https://github.com/ja2-stracciatella/"
 
-if [[ ${PV} = 9999 ]]; then
-	EGIT_REPO_URI="https://github.com/ja2-stracciatella/ja2-stracciatella.git"
-else
-	SRC_URI="https://github.com/ja2-stracciatella/ja2-stracciatella/releases/tag/v${PV}.tar.gz -> ${P}.tar.gz"
-	SRC_URI+=" $(cargo_crate_uris ${CRATES})"
-fi
+SRC_URI="https://github.com/ja2-stracciatella/ja2-stracciatella/releases/tag/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI+=" $(cargo_crate_uris ${CRATES})"
 
 IUSE="cdinstall"
 LICENSE="SFI-SCLA"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 DEPEND="media-libs/libsdl2[X,sound,video]
 		!~media-libs/libsdl2-2.0.6
 		>=dev-lang/rust-1.40.0
 		>=dev-cpp/gtest-1.9.0_pre20190607
 		>=x11-libs/fltk-1.3.5
+		>=dev-cpp/string-theory-3.1
 		>=dev-libs/rapidjson-1.1.0
 "
 
@@ -134,9 +126,8 @@ PATCHES=(
 	"${FILESDIR}/${P}-staticlibsmacker.patch"
 )
 
-CMAKE_BUILD_TYPE="Release"
-
 src_configure() {
+		local mycmakeargs=()
 
 		case ${L10N} in
 			de) mycmakeargs+=" -DLNG=GERMAN" ;;
@@ -157,38 +148,27 @@ src_configure() {
 			 -DWITH_RUST_BINARIES=OFF
 			 -DBUILD_LAUNCHER=OFF
 			 -DOPENGL_GL_PREFERENCE=GLVND
-			 -DEXTRA_DATA_DIR="/usr/share/ja2"
+			 -DEXTRA_DATA_DIR="${EPREFIX}/usr/share/ja2"
 			 )
 
-		cargo_src_unpack
 		cargo_gen_config
 		cmake_src_configure
 }
 
-src_compile() {
-		cmake_src_compile
-}
-
-src_install() {
-
-	if use editor; then
-		insinto "${GAMES_DATADIR}"/ja2/data
-		doins "${WORKDIR}"/editor.slf
-	fi
-
-	cmake_src_install
-}
-
 pkg_postinst() {
-
 	elog "You need ja2 in the chosen language, otherwise set it in package.use!"
 
 	if ! use cdinstall ; then
 		elog "You need to copy all files from the Data directory of"
 		elog "Jagged Alliance 2 installation to"
-		elog "${GAMES_DATADIR}/ja2/data "
-		elog "Make sure the filenames are lowercase. You may want to run the"
-		elog "script":
-		elog "${GAMES_BINDIR}/ja2-convert"
+		elog "e.g. /opt/ja2/data and set game_dir in .ja2/ja2.json"
+		elog "accordingly."
+		elog "Make sure the filenames are lowercase."
 	fi
+
+	xdg_icon_cache_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
 }
