@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit autotools eutils linux-info systemd tmpfiles toolchain-funcs user git-r3
+inherit autotools eutils linux-info systemd tmpfiles toolchain-funcs git-r3
 
 DESCRIPTION="DLNA/UPnP-AV compliant media server"
 HOMEPAGE="https://sourceforge.net/projects/minidlna/"
@@ -31,9 +31,9 @@ DEPEND="${RDEPEND}
 
 CONFIG_CHECK="~INOTIFY_USER"
 
-#PATCHES=(
-#	"${WORKDIR}"/minidlna-gentoo-artwork.patch
-#)
+PATCHES=(
+	"${FILESDIR}"/minidlna-gentoo-artwork.patch
+)
 
 S=${WORKDIR}/${P}
 
@@ -41,8 +41,7 @@ src_prepare() {
 	sed -e "/log_dir/s:/var/log:/var/log/minidlna:" \
 		-e "/db_dir/s:/var/cache/:/var/lib/:" \
 		-i minidlna.conf || die
-                
-        eautoreconf
+	eautoreconf
 	default
 }
 
