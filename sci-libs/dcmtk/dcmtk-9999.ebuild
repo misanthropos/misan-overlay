@@ -25,7 +25,6 @@ IUSE="doc png ssl tcpd tiff +threads xml zlib"
 
 RDEPEND="
 	virtual/jpeg:0
-	virtual/libstdc++
 	png? ( media-libs/libpng:* )
 	ssl? ( dev-libs/openssl:0 )
 	tcpd? ( sys-apps/tcp-wrappers )
