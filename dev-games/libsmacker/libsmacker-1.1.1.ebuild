@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit autotools eutils
+inherit autotools
 
 DESCRIPTION="A cross-platform C library for decoding .smk Smacker Video files."
 HOMEPAGE="https://libsmacker.sourceforge.net"
