@@ -32,9 +32,9 @@ DEPEND="${RDEPEND}
 
 CONFIG_CHECK="~INOTIFY_USER"
 
-PATCHES=(
-	"${FILESDIR}"/minidlna-gentoo-artwork.patch
-)
+#PATCHES=(
+#	"${FILESDIR}"/minidlna-gentoo-artwork.patch
+#)
 
 S=${WORKDIR}/${P}
 
