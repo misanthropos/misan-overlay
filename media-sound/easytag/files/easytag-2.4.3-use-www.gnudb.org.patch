@@ -1,0 +1,12 @@
+diff --git a/src/cddb_dialog.c b/src/cddb_dialog.c
+index 011554b..ef3f5d8 100644
+--- a/src/cddb_dialog.c
++++ b/src/cddb_dialog.c
+@@ -926,6 +926,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
+ 			// New version of gnudb doesn't use a cddb request, but a http request
+             /* HTTP/1.0 to avoid the server returning chunked results.
+              * https://bugzilla.gnome.org/show_bug.cgi?id=743812 */
++			cddb_server_name = g_strdup_printf ("www.gnudb.org");
+ 		    cddb_in = g_strdup_printf("GET %s%s/gnudb/"
+ 		                              "%s/%s"
+ 		                              " HTTP/1.0\r\n"
